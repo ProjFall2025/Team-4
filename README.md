@@ -16,5 +16,5 @@ The site will include tools like a daily mood tracker, journal notes, reminders,
 Our design approach is to keep everything calming. The interface will use soft colors, big buttons, and easy navigation so that the site feels supportive, not stressful. In short, MindMate is like a friendly digital buddy that nudges you to pause, reflect, and take care of yourself.  
 
 
-## 2. Target User
+
 
