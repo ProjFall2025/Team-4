@@ -15,12 +15,13 @@ The site will include tools like a daily mood tracker, journal notes, reminders,
 
 Our design approach is to keep everything calming. The interface will use soft colors, big buttons, and easy navigation so that the site feels supportive, not stressful. In short, MindMate is like a friendly digital buddy that nudges you to pause, reflect, and take care of yourself.  
 
+
 ## 2. Target Users  
 
 ### User Group 1: College Students (18–25 years)  
 - *Demographics & Interests:* Students who are busy with classes, part-time jobs, and campus activities. They often care about productivity but struggle with irregular sleep and stress.  
 - *Needs:* Quick reminders to take care of themselves, stress tracking during exams, and something positive to see when they’re overwhelmed.  
-- *Support from Site:* Mood tracking during exam weeks, hydration and sleep awareness, motivational quotes that show up when logging in.  
+- *Support from Site:* Mood tracking during exam weeks, motivational quotes that show up when logging in.  
 
 ### User Group 2: Working Professionals (25–40 years)  
 - *Demographics & Interests:* Full-time employees who don’t have much extra time. They want short, practical ways to reset and check in.  
@@ -29,8 +30,9 @@ Our design approach is to keep everything calming. The interface will use soft c
 
 ### User Group 3: Health-Conscious Adults (30–50 years)  
 - *Demographics & Interests:* Adults already trying to improve lifestyle habits, like eating better or exercising more. Many already use some kind of app or wearable.  
-- *Needs:* A way to connect mental and emotional health with physical wellness. They don’t want too much complexity.  
+- *Needs:* A way to connect mental and emotional health. They don’t want too much complexity.  
 - *Support from Site:* Journal notes to capture context for moods, streak tracker to encourage consistency, and emotional insights that make the data meaningful.
+
 
 ## 3. 🧠 Mental Health Features  
 
@@ -52,19 +54,19 @@ Our design approach is to keep everything calming. The interface will use soft c
 4. *Personal Journal / Notes*  
    - Users can add short notes with their mood logs.  
    - Example: “Felt anxious in class, but walking with friends helped.”  
-   - Supports reflection beyond just picking an emoji.  
+   - Promoting self-awareness and growth.  
 
 5. *Guided Breathing Exercise*  
    - A circle or text animation grows/shrinks with inhale/exhale prompts.  
    - Lasts 1–2 minutes, perfect for quick breaks.  
-   - Built with simple CSS + JavaScript.  
+   - Reduces stress using simple accessible visuals.
 
 6. *Streaks & Consistency Tracker*  
    - Shows how many days in a row a user checked in.  
    - Example: “You’ve logged your mood 6 days straight!”  
    - Encourages habit-building without making it competitive.  
 
-7. *Reminders (Optional)*  
+7. *Reminders (optional)*  
    - Browser notifications once a day.  
    - Example: “How are you feeling today?”  
    - Gentle nudges that keep users engaged.  
@@ -74,7 +76,6 @@ Our design approach is to keep everything calming. The interface will use soft c
    - Example: “This week you felt positive 4 times, neutral twice, and low once.”  
    - Makes mood data easy to understand and useful.  
 
----
 
 ## 4. Preliminary Development Plan  
 
@@ -95,8 +96,8 @@ Our design approach is to keep everything calming. The interface will use soft c
   - HTML, CSS, and JavaScript for structure, styling, and features.  
   - Chart.js to make mood graphs.  
   - LocalStorage for saving data in the browser.  
-- *Backend (future idea):*  
-  - Node.js + Express + MongoDB for storing user accounts and syncing across devices.  
+- *Backend:*  
+  - Node.js + Express for storing user accounts and syncing across devices.  
 - *Collaboration:*  
   - Use GitHub branches (like feature/mood-tracker) so each team member works on a part and merges later.  
 
@@ -115,13 +116,11 @@ Our design approach is to keep everything calming. The interface will use soft c
   - Syncing with wearables.  
   - Secure logins with personal dashboards.  
 
----
 
 ## 📌 References  
 
 - [Chart.js Documentation](https://www.chartjs.org/docs/latest/)  
-- [UX Design Principles for Wellness Apps](https://uxdesign.cc/)  
 - [Daylio Journal](https://daylio.net/)  
 - [Calm App](https://www.calm.com/)  
-
-
+- [National Institute of Mental Health](https://www.nimh.nih.gov/health)
+- [Headspace](https://www.headspace.com/)  
