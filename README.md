@@ -1,4 +1,4 @@
-## MindaMate
+## MindMate
 
  **TEAM MEMBER:**
 -Student 1 (Saunil Patel)
@@ -80,7 +80,7 @@ Our design approach is to keep everything calming. The interface will use soft c
 ## 4. Preliminary Development Plan  
 
 ### Phase 1: Research & Analysis  
-- Talk to students and professionals about what features they’d actually use.  
+- Talk to students about what features they’d actually use.  
 - Review apps like Daylio, Calm, and Headspace to see what they do well and what feels overwhelming.  
 - Key pain points we found: too many notifications, overcomplicated menus, and lack of meaningful summaries.  
 
@@ -88,8 +88,7 @@ Our design approach is to keep everything calming. The interface will use soft c
 - Calming colors (lavender, pastel blues, soft green).  
 - Minimal layout: a dashboard with big buttons for logging moods and notes.  
 - Mobile-first approach since most users check in quickly on their phone.  
-- Accessibility: readable fonts, ARIA labels, and options for higher contrast.  
-- Create wireframes in Figma and share with classmates for early feedback.  
+- Accessibility: readable fonts, ARIA labels, and options for higher contrast.    
 
 ### Phase 3: Development  
 - *Frontend:*  
@@ -98,17 +97,15 @@ Our design approach is to keep everything calming. The interface will use soft c
   - LocalStorage for saving data in the browser.  
 - *Backend:*  
   - Node.js + Express for storing user accounts and syncing across devices.  
-- *Collaboration:*  
-  - Use GitHub branches (like feature/mood-tracker) so each team member works on a part and merges later.  
 
 ### Phase 4: Testing  
 - *Usability Testing:* Have classmates use the site and give feedback.  
 - *Performance Testing:* Make sure pages and charts load fast.  
-- *Cross-Browser Testing:* Try Chrome, Firefox, Safari, and Edge.  
+- *Cross-Browser Testing:* Try Chrome, Firefox and Edge.  
 - *Input Validation:* Prevent broken entries in forms.  
 
 ### Phase 5: Launch & Maintenance  
-- Deploy the first version on GitHub Pages or Netlify.  
+- Deploy the first version on GitHub Pages.  
 - Ask classmates and professor for feedback after launch.  
 - Future upgrades could include:  
   - AI-based suggestions (e.g., “Try breathing exercise when mood is low”).  
