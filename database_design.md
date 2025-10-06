@@ -192,3 +192,34 @@ CREATE TABLE Insights (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE
 );
+
+
+The MindMate database schema is designed to directly support every key functionality of the website in a structured and scalable way.
+
+- *User Management:*  
+  The Users table stores login credentials and profile data for each account.  
+  Every feature—mood logging, journaling, breathing sessions, and insights—links back to a user_id, ensuring secure and personalized data.  
+  The last_login field supports streak tracking and consistency features.
+
+- *Mood Tracking & History:*  
+  The MoodEntry table captures each emotional check-in (mood type, emoji, and optional note) for a specific date.  
+  These entries form the core of the Mood Tracker and Mood History features, allowing the app to generate mood patterns and charts.
+
+- *Personal Journaling:*  
+  The JournalEntry table enables users to record reflections and optionally link them to specific moods via the mood_id field.  
+  This supports both standalone journaling and deeper emotional insights.
+
+- *Daily Quotes & Motivation:*  
+  The Quotes table holds motivational or wellness messages displayed randomly to users.  
+  It is independent from other tables, allowing easy updates or additions without affecting user data.
+
+- *Guided Breathing Exercises:*  
+  The BreathingSession table logs each guided breathing activity, including date and duration.  
+  This supports progress tracking and reinforces mindfulness habits.
+
+- *Weekly Emotional Insights:*  
+  The Insights table compiles weekly summaries of user mood trends.  
+  Data for these summaries is derived from the MoodEntry table to show emotional progress over time.
+
+Together, these six entities ensure that every MindMate feature—from mood tracking to journaling and mindfulness—is fully backed by structured data.  
+The schema maintains referential integrity, simplifies analytics, and supports future scalability such as AI recommendations or wearable device integration.
