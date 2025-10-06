@@ -223,4 +223,4 @@ The MindMate database schema is designed to directly support every key functiona
 
 Together, these six entities ensure that every MindMate feature—from mood tracking to journaling and mindfulness—is fully backed by structured data.  
 The schema maintains referential integrity, simplifies analytics, and supports future scalability such as AI recommendations or wearable device integration.
-![ER Diagram](images/ER Diagram.jpeg)
+![ER Diagram](images/ER %20 Diagram.jpeg)
