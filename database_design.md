@@ -192,7 +192,7 @@ CREATE TABLE Insights (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE
 );
-
+![UML Diagram](images/UML.jpeg)
 
 The MindMate database schema is designed to directly support every key functionality of the website in a structured and scalable way.
 
