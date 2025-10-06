@@ -115,7 +115,6 @@ Many `Insights` belong to one `User`.
 
 The following SQL script creates the **MindMate** database and all required tables with appropriate keys, constraints, and relationships.  
 
-```sql
 -- ==========================
 -- CREATE DATABASE
 -- ==========================
