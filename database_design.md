@@ -111,3 +111,84 @@ Many `Insights` belong to one `User`.
 | `Users` → `Insights` | 1 : M |
 | `MoodEntry` → `JournalEntry` | 1 : M (optional) |
 
+-- ==========================
+-- CREATE DATABASE
+-- ==========================
+CREATE DATABASE IF NOT EXISTS MindMate;
+USE MindMate;
+
+-- ==========================
+-- 1️⃣ USERS TABLE
+-- ==========================
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME DEFAULT NULL -- for streak tracking
+);
+
+-- ==========================
+-- 2️⃣ MOOD ENTRY TABLE
+-- ==========================
+CREATE TABLE MoodEntry (
+    mood_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    mood_date DATE DEFAULT (CURDATE()), -- auto-record current date
+    mood_type ENUM('happy', 'neutral', 'sad', 'anxious', 'stressed') NOT NULL,
+    emoji VARCHAR(10), -- optional emoji to display
+    note TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE
+);
+
+-- ==========================
+-- 3️⃣ JOURNAL ENTRY TABLE
+-- ==========================
+CREATE TABLE JournalEntry (
+    journal_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    mood_id INT, -- optional link to related mood entry
+    entry_date DATE DEFAULT (CURDATE()),
+    title VARCHAR(200),
+    content TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE,
+    FOREIGN KEY (mood_id) REFERENCES MoodEntry(mood_id)
+        ON DELETE SET NULL
+);
+
+-- ==========================
+-- 4️⃣ QUOTES TABLE
+-- ==========================
+CREATE TABLE Quotes (
+    quote_id INT PRIMARY KEY AUTO_INCREMENT,
+    quote_text TEXT NOT NULL,
+    author VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ==========================
+-- 5️⃣ BREATHING SESSION TABLE
+-- ==========================
+CREATE TABLE BreathingSession (
+    session_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    session_date DATE DEFAULT (CURDATE()),
+    duration INT NOT NULL, -- in seconds (e.g., 60 for 1 min)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE
+);
+
+-- ==========================
+-- 6️⃣ INSIGHTS TABLE
+-- ==========================
+CREATE TABLE Insights (
+    insight_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    week_start DATE NOT NULL,
+    summary TEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ON DELETE CASCADE
+);
