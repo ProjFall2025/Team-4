@@ -111,6 +111,11 @@ Many `Insights` belong to one `User`.
 | `Users` → `Insights` | 1 : M |
 | `MoodEntry` → `JournalEntry` | 1 : M (optional) |
 
+## 2. Full Database Schema 
+
+The following SQL script creates the **MindMate** database and all required tables with appropriate keys, constraints, and relationships.  
+
+```sql
 -- ==========================
 -- CREATE DATABASE
 -- ==========================
@@ -118,7 +123,7 @@ CREATE DATABASE IF NOT EXISTS MindMate;
 USE MindMate;
 
 -- ==========================
--- 1️⃣ USERS TABLE
+-- USERS TABLE
 -- ==========================
 CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -130,7 +135,7 @@ CREATE TABLE Users (
 );
 
 -- ==========================
--- 2️⃣ MOOD ENTRY TABLE
+-- MOOD ENTRY TABLE
 -- ==========================
 CREATE TABLE MoodEntry (
     mood_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -144,7 +149,7 @@ CREATE TABLE MoodEntry (
 );
 
 -- ==========================
--- 3️⃣ JOURNAL ENTRY TABLE
+-- JOURNAL ENTRY TABLE
 -- ==========================
 CREATE TABLE JournalEntry (
     journal_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -160,7 +165,7 @@ CREATE TABLE JournalEntry (
 );
 
 -- ==========================
--- 4️⃣ QUOTES TABLE
+-- QUOTES TABLE
 -- ==========================
 CREATE TABLE Quotes (
     quote_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -170,7 +175,7 @@ CREATE TABLE Quotes (
 );
 
 -- ==========================
--- 5️⃣ BREATHING SESSION TABLE
+-- BREATHING SESSION TABLE
 -- ==========================
 CREATE TABLE BreathingSession (
     session_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -182,7 +187,7 @@ CREATE TABLE BreathingSession (
 );
 
 -- ==========================
--- 6️⃣ INSIGHTS TABLE
+-- INSIGHTS TABLE
 -- ==========================
 CREATE TABLE Insights (
     insight_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -192,7 +197,12 @@ CREATE TABLE Insights (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE
 );
+
+## 3. UML Diagram 
+
 ![UML Diagram](images/UML.jpeg)
+
+## 4. Brief Explanation of How the Schema Supports Site Functionalities
 
 The MindMate database schema is designed to directly support every key functionality of the website in a structured and scalable way.
 
@@ -223,4 +233,7 @@ The MindMate database schema is designed to directly support every key functiona
 
 Together, these six entities ensure that every MindMate feature—from mood tracking to journaling and mindfulness—is fully backed by structured data.  
 The schema maintains referential integrity, simplifies analytics, and supports future scalability such as AI recommendations or wearable device integration.
+
+## 5. ER Diagram
+
 ![ER Diagram](images/ERDiagram.jpeg)
