@@ -114,7 +114,7 @@ Many `Insights` belong to one `User`.
 ## 2. Full Database Schema 
 
 The following SQL script creates the **MindMate** database and all required tables with appropriate keys, constraints, and relationships.  
-
+```
 -- ==========================
 -- CREATE DATABASE
 -- ==========================
@@ -196,6 +196,7 @@ CREATE TABLE Insights (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ON DELETE CASCADE
 );
+```
 
 ## 3. UML Diagram 
 
