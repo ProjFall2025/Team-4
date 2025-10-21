@@ -1,5 +1,10 @@
 # MINDMATE - System Design (Part 3)
 
+ **TEAM MEMBER:**
+- Saunil Patel
+- Rohit Saresa
+- Fenny Patel
+
 ## Step 1: System Architecture Overview
 
 ### Architecture style (3-tier):
@@ -12,9 +17,8 @@
 
 ### System Architecture Diagram: 
 
-The following diagram illustrates how different layers of the application interact — from the user interface to backend services and data storage.
+![UML Diagram](images/system_architecture.png)
 
-![System Architecture](system_architecture.png)
 
 ## Step 2: Technology Stack
 ### Front end
@@ -96,6 +100,7 @@ This app keeps things simple: three roles and a handful of guarded actions. Gues
 
 ## Step 4: UML & Architecture Diagrams
 -UML Diagram
+
 ![UML Diagram](images/UML2.jpg)
 
 -Sequence Diagram
@@ -264,7 +269,7 @@ Response:
   "breathing": { "sessions": 12 },
   "journals": { "entries": 7 }
 }
-```
+
 ### Step 6: Security and Performance Considerations
 
 ### Security
