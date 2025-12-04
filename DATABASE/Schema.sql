@@ -12,8 +12,14 @@ CREATE TABLE IF NOT EXISTS Users (
   password_hash VARCHAR(255) NOT NULL,
   role ENUM('admin','user','guest') DEFAULT 'user',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  last_login DATETIME DEFAULT NULL
+  last_login DATETIME DEFAULT NULL,
+  avatar VARCHAR(255) DEFAULT NULL,
+  dob DATE DEFAULT NULL,
+  gender ENUM('male', 'female', 'other') DEFAULT NULL,
+  about_me TEXT DEFAULT NULL,
+  theme ENUM('light','dark') NOT NULL DEFAULT 'light'
 ) ENGINE=InnoDB;
+
 
 -- =====================
 -- MOOD ENTRIES TABLE
@@ -21,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Users (
 CREATE TABLE IF NOT EXISTS MoodEntries (
   mood_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
-  mood_date DATE DEFAULT (CURRENT_DATE),
+  mood_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   mood_type ENUM('happy','neutral','sad','anxious','stressed') NOT NULL,
   emoji VARCHAR(10),
   note TEXT,
@@ -60,7 +66,7 @@ CREATE TABLE IF NOT EXISTS Quotes (
 CREATE TABLE IF NOT EXISTS BreathingSessions (
   session_id INT PRIMARY KEY AUTO_INCREMENT,
   user_id INT NOT NULL,
-  session_date DATE DEFAULT (CURRENT_DATE),
+  session_date DATETIME DEFAULT CURRENT_TIMESTAMP,
   duration INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
@@ -76,4 +82,18 @@ CREATE TABLE IF NOT EXISTS Insights (
   summary TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- =====================
+-- FRIENDREQUESTS TABLE
+-- =====================
+CREATE TABLE FriendRequests (
+  request_id INT AUTO_INCREMENT PRIMARY KEY,
+  sender_id INT NOT NULL,
+  receiver_id INT NOT NULL,
+  status ENUM('pending', 'accepted', 'rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_request (sender_id, receiver_id),
+  CONSTRAINT fk_sender FOREIGN KEY (sender_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+  CONSTRAINT fk_receiver FOREIGN KEY (receiver_id) REFERENCES Users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
