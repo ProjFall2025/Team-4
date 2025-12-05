@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const db = require("./config/database");
+const db = require("./config/Database");
 
 dotenv.config();
 
@@ -85,4 +85,5 @@ app.listen(PORT, async () => {
 });
 
 module.exports = app;
+
 
