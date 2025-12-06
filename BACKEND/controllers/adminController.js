@@ -1,4 +1,4 @@
-const db = require("../config/database");
+const db = require("../config/Database");
 
 const adminController = {
   getAllUsers: async (req, res) => {
@@ -121,3 +121,4 @@ const adminController = {
 };
 
 module.exports = adminController;
+
