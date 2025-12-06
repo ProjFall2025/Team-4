@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const db = require("../config/Database");
 
 exports.sendRequest = async (req, res) => {
   try {
@@ -58,3 +58,4 @@ exports.getFriends = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
