@@ -1,4 +1,4 @@
-const db = require('../config/database');
+const db = require('../config/Database');
 
 const userController = {
   // Fetch all users with basic + aggregated mood data
@@ -71,3 +71,4 @@ const userController = {
 };
 
 module.exports = userController;
+
