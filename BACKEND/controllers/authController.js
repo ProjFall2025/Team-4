@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const db = require("../config/database");
+const db = require("../config/Database");
 const User = require("../models/User");
 const crypto = require("crypto");
 
@@ -340,3 +340,4 @@ resetPassword: async (req, res) => {
 };
 
 module.exports = authController;
+
