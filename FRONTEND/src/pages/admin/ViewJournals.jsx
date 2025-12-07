@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function ViewJournals() {
   const [journals, setJournals] = useState([]);
@@ -13,7 +14,7 @@ export default function ViewJournals() {
 
   const loadJournals = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/admin/journals", {
+      const res = await api.get("/admin/journals", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJournals(res.data);
@@ -25,7 +26,7 @@ export default function ViewJournals() {
 
   const deleteJournal = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/journal/${id}`, {
+      await api.delete("/admin/journal/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Journal deleted");
@@ -78,3 +79,4 @@ export default function ViewJournals() {
     </div>
   );
 }
+
