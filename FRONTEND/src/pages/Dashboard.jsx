@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import UserList from "./UserList";
 import FriendRequests from "./FriendRequests";
 import FriendsList from "./FriendsList";
+import api from "../api";
 
 export default function Dashboard() {
   const [profile, setProfile] = useState(null);
@@ -26,7 +27,7 @@ export default function Dashboard() {
           return;
         }
 
-        const response = await axios.get("http://localhost:3000/api/auth/profile", {
+        const response = await api.get("/auth/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -155,3 +156,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
