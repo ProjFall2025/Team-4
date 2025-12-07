@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function MoodTracker() {
   const [moods, setMoods] = useState([]);
   const [moodType, setMoodType] = useState("");
   const [note, setNote] = useState("");
   const [quoteData, setQuoteData] = useState(null);
-  const [showHistory, setShowHistory] = useState(false); // 👈 NEW
+  const [showHistory, setShowHistory] = useState(false); 
   const token = localStorage.getItem("token");
 
   const exerciseGifs = {
@@ -24,7 +25,7 @@ export default function MoodTracker() {
 
   const fetchMoods = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/moods", {
+      const res = await api.get("/moods", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMoods(res.data);
@@ -36,8 +37,7 @@ export default function MoodTracker() {
   const handleAddMood = async () => {
     if (!moodType) return toast.error("Please select a mood.");
     try {
-      await axios.post(
-        "http://localhost:3000/api/moods",
+      await api.post("/moods",
         { mood_type: moodType, note },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -54,7 +54,7 @@ export default function MoodTracker() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/moods/${id}`, {
+      await api.delete("/moods/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Mood deleted!");
@@ -67,8 +67,7 @@ export default function MoodTracker() {
 
   const fetchQuote = async (mood) => {
     try {
-      const res = await axios.get(
-        `http://localhost:3000/api/quotes/mood?mood=${mood}`,
+      const res = await api.get("/quotes/mood?mood=${mood}",
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setQuoteData(res.data);
@@ -203,4 +202,5 @@ export default function MoodTracker() {
       )}
     </>
   );
+
 }
