@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function UserProfileCard({ user }) {
   const [requested, setRequested] = useState(false);
@@ -8,8 +9,7 @@ export default function UserProfileCard({ user }) {
 
   const sendFriendRequest = async () => {
     try {
-      await axios.post(
-        `http://localhost:3000/api/friends/request/${user.user_id}`,
+      await api.post("/friends/request/${user.user_id}",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -55,3 +55,4 @@ export default function UserProfileCard({ user }) {
     </div>
   );
 }
+
