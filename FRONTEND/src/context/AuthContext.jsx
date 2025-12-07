@@ -1,13 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-
+import api from "../api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = async (email, password, navigate) => {
-  const res = await axios.post("http://localhost:3000/api/auth/login", {
+  const res = await api.post("/login", {
     email,
     password
   });
@@ -30,15 +30,14 @@ const [requestCount, setRequestCount] = useState(0);
 
 const loadRequestCount = async () => {
   const token = localStorage.getItem("token");
-  const res = await axios.get(
-    "http://localhost:3000/api/friends/requests/pending",
+  const res = await api.get("/friends/requests/pending",
     { headers: { Authorization: `Bearer ${token}` } }
   );
   setRequestCount(res.data.count);
 };
 
   const register = async (name, email, password) => {
-    await axios.post("http://localhost:3000/api/auth/register", { username: name, email, password });
+    await api.post("/auth/register", { username: name, email, password });
   };
 
   const logout = async () => {
@@ -79,3 +78,4 @@ const loadRequestCount = async () => {
     </AuthContext.Provider>
   );
 };
+
