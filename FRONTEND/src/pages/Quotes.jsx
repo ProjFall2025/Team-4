@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function Quotes() {
   const [quoteData, setQuoteData] = useState(null);
@@ -13,8 +14,7 @@ export default function Quotes() {
     setLoading(true);
     try {
       // Add a random query param to force unique API call each time
-      const res = await axios.get(
-        `http://localhost:3000/api/quotes/mood?mood=${mood}&t=${Date.now()}`,
+      const res = await api.get("/quotes/mood?mood=${mood}&t=${Date.now()}",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -86,3 +86,4 @@ export default function Quotes() {
     </div>
   );
 }
+
