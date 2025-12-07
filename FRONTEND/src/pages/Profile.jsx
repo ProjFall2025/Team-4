@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Profile() {
   const [profile, setProfile] = useState({});
@@ -12,13 +13,13 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/auth/profile", {
+        const res = await api.get("/auth/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         const data = res.data;
 
-        // 🔥 Normalize DOB returned from backend (remove timestamp)
+        // Normalize DOB returned from backend (remove timestamp)
         const cleanDOB = data.dob ? data.dob.split("T")[0] : "";
 
         setProfile({
@@ -45,7 +46,7 @@ export default function Profile() {
         dob: profile.dob || null,
       };
 
-      await axios.put("http://localhost:3000/api/auth/update", cleanData, {
+      await api.put("/auth/update", cleanData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -56,7 +57,7 @@ export default function Profile() {
     }
   };
 
-  // 🔥 Timezone-safe age calculation using local date components
+  // Timezone-safe age calculation using local date components
   const calculateAge = (dob) => {
     if (!dob) return "";
     const [year, month, day] = dob.split("-").map(Number);
@@ -73,7 +74,7 @@ export default function Profile() {
     return age;
   };
 
-  // 🔥 Convert YYYY-MM-DD → DD/MM/YYYY (no timezone shifting)
+  // Convert YYYY-MM-DD → DD/MM/YYYY (no timezone shifting)
   const formatDOB = (dob) => {
     if (!dob) return "Not provided";
     const [y, m, d] = dob.split("-");
@@ -238,3 +239,4 @@ export default function Profile() {
     </div>
   );
 }
+
