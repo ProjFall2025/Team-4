@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 import { Bar, Line, Doughnut, Radar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -41,7 +42,7 @@ export default function Insights() {
   useEffect(() => {
     const fetchInsights = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/insights", {
+        const res = await api.get("/insights", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setInsights(res.data);
@@ -56,7 +57,7 @@ export default function Insights() {
   useEffect(() => {
     const fetchMoods = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/moods", {
+        const res = await api.get("/moods", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMoods(res.data);
@@ -92,15 +93,14 @@ export default function Insights() {
       return;
     }
     try {
-      await axios.post(
-        "http://localhost:3000/api/insights",
+      await api.post("/insights",
         { week_start: weekStart, summary },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success("Insight added");
       setWeekStart("");
       setSummary("");
-      const res = await axios.get("http://localhost:3000/api/insights", {
+      const res = await api.get("/insights", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setInsights(res.data);
@@ -111,7 +111,7 @@ export default function Insights() {
 
   const deleteInsight = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/insights/${id}`, {
+      await api.delete("/insights/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setInsights(insights.filter((i) => i.insight_id !== id));
@@ -348,3 +348,4 @@ export default function Insights() {
     </div>
   );
 }
+
