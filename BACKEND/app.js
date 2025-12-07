@@ -80,10 +80,13 @@ app.listen(PORT, async () => {
     console.log("✅ Connected to MySQL database");
     console.log(`🚀 MindMate API running on port ${PORT}`);
   } catch (error) {
+    console.log(" Skipping Database warm-up test");
+  }catch (error) {
     console.error("❌ Database connection failed:", error);
   }
 });
 
 module.exports = app;
+
 
 
