@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function Breathing() {
   const [phase, setPhase] = useState("ready");
@@ -17,7 +18,7 @@ export default function Breathing() {
 
   const fetchSessions = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/breathing", {
+      const res = await api.get("/breathing", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSessions(res.data);
@@ -57,8 +58,8 @@ export default function Breathing() {
 
   const saveSession = async () => {
     try {
-      await axios.post(
-        "http://localhost:3000/api/breathing",
+      await api.post(
+        "/breathing",
         { duration, type: "guided" },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -72,7 +73,7 @@ export default function Breathing() {
 
   const deleteSession = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/breathing/${id}`, {
+      await api.delete("/breathing/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSessions(sessions.filter((s) => s.session_id !== id));
@@ -173,4 +174,5 @@ export default function Breathing() {
     )}
   </div>
 );
+
 }
