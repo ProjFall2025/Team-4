@@ -6,6 +6,7 @@ import { Sun, Moon } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { Line } from "react-chartjs-2";
+import api from "../api";
 import {
   Chart as ChartJS,
   LineElement,
@@ -33,7 +34,7 @@ export default function AdminPanel() {
 
   const fetchAnalytics = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/admin/analytics", {
+      const res = await api.get("/admin/analytics", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(res.data);
@@ -221,3 +222,4 @@ export default function AdminPanel() {
     </div>
   );
 }
+
