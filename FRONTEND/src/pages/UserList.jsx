@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import UserProfileCard from "./UserProfileCard";
-
+import api from '../api";
+  
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,7 +12,7 @@ export default function UserList() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/users/public", {
+        const res = await api.get("/users/public", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUsers(res.data);
@@ -23,11 +24,10 @@ export default function UserList() {
     fetchUsers();
   }, [token]);
 
-  // ✅ Send friend request
+  // Send friend request
   const sendFriendRequest = async (receiverId) => {
     try {
-      const res = await axios.post(
-        `http://localhost:3000/api/friends/request/${receiverId}`,
+      const res = await api.post("/friends/request/${receiverId}",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -110,3 +110,4 @@ export default function UserList() {
     </div>
   );
 }
+
