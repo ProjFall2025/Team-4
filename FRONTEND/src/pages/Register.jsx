@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function Register() {
     }
 
     try {
-      await axios.post("http://localhost:3000/api/auth/register", form);
+      await api.post("/auth/register", form);
       toast.success("Account created!");
       navigate("/login");
     } catch (err) {
@@ -99,3 +100,4 @@ export default function Register() {
     </div>
   );
 }
+
