@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function FriendRequests() {
   const [requests, setRequests] = useState([]);
@@ -9,7 +10,7 @@ export default function FriendRequests() {
   // Load pending requests
   const loadRequests = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/friends/received", {
+      const res = await api.get("/friends/received", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setRequests(res.data);
@@ -25,7 +26,7 @@ export default function FriendRequests() {
 
   const handleAccept = async (id) => {
     try {
-      await axios.post(`http://localhost:3000/api/friends/accept/${id}`, {}, {
+      await api.post("/friends/accept/${id}", {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Friend request accepted");
@@ -37,7 +38,7 @@ export default function FriendRequests() {
 
   const handleReject = async (id) => {
     try {
-      await axios.post(`http://localhost:3000/api/friends/reject/${id}`, {}, {
+      await api.post("/friends/reject/${id}", {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Friend request rejected");
@@ -84,3 +85,4 @@ export default function FriendRequests() {
     </div>
   );
 }
+
