@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast"; 
+import api from "../api";
 
 export default function ResetPassword() {
   const { token } = useParams();
@@ -30,8 +31,7 @@ export default function ResetPassword() {
     }
 
     try {
-      const res = await axios.post(
-        `http://localhost:3000/api/auth/reset-password/${token}`,
+      const res = await api.post("/reset-password/${token}",
         { email, newPassword }
       );
 
@@ -97,3 +97,4 @@ export default function ResetPassword() {
     </div>
   );
 }
+
