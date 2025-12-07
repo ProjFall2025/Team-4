@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Login() {
     localStorage.removeItem("token");
 
 
-    const res = await axios.post("http://localhost:3000/api/auth/login", form);
+    const res = await api.post("/auth/login", form);
 
     // if backend returns success=false or missing token
     if (!res.data || !res.data.token || !res.data.user) {
@@ -124,3 +125,4 @@ export default function Login() {
     </div>
   );
 }
+
