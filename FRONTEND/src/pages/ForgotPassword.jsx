@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/api/auth/forgot-password", { email });
+      const res = await api.post("/auth/forgot-password", { email });
 
       toast.success("Reset link sent!");
       if (res.data.resetLink) window.open(res.data.resetLink, "_blank");
@@ -63,3 +64,4 @@ export default function ForgotPassword() {
     </div>
   );
 }
+
