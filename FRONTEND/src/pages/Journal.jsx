@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function Journal() {
   const [entries, setEntries] = useState([]);
@@ -13,7 +14,7 @@ export default function Journal() {
   useEffect(() => {
     const fetchEntries = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/journals", {
+        const res = await api.get("/journals", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEntries(res.data);
@@ -33,8 +34,7 @@ export default function Journal() {
     }
 
     try {
-      await axios.post(
-        "http://localhost:3000/api/journals",
+      await api.post("/journals",
         { title, content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -42,7 +42,7 @@ export default function Journal() {
       setTitle("");
       setContent("");
 
-      const res = await axios.get("http://localhost:3000/api/journals", {
+      const res = await api.get("/journals", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEntries(res.data);
@@ -54,7 +54,7 @@ export default function Journal() {
   // Delete entry
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/journals/${id}`, {
+      await api.delete("/journals/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEntries(entries.filter((e) => e.journal_id !== id));
@@ -129,3 +129,4 @@ export default function Journal() {
   </div>
 );
 }
+
