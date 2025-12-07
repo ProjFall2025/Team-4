@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function ManageUsers() {
   const [users, setUsers] = useState([]);
@@ -13,7 +14,7 @@ export default function ManageUsers() {
 
   const loadUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/admin/users", {
+      const res = await api.get("/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -24,7 +25,7 @@ export default function ManageUsers() {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/user/${id}`, {
+      await api.delete("/admin/user/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("User deleted");
@@ -86,3 +87,4 @@ export default function ManageUsers() {
     </div>
   );
 }
+
