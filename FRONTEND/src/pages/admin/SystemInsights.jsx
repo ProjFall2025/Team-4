@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function SystemInsights() {
   const [moods, setMoods] = useState([]);
@@ -12,7 +13,7 @@ export default function SystemInsights() {
 
   const loadMoods = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/admin/moods", {
+      const res = await api.get("/admin/moods", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMoods(res.data);
@@ -24,7 +25,7 @@ export default function SystemInsights() {
 
   const deleteMood = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/mood/${id}`, {
+      await api.delete("/admin/mood/${id}", {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Mood deleted");
@@ -73,3 +74,4 @@ export default function SystemInsights() {
     </div>
   );
 }
+
