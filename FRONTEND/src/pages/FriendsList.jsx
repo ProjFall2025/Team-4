@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import api from "../api";
 
 export default function FriendsList() {
   const [friends, setFriends] = useState([]);
@@ -8,7 +9,7 @@ export default function FriendsList() {
 
   const loadFriends = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/friends", {
+      const res = await api.get("/friends", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFriends(res.data);
@@ -20,8 +21,7 @@ export default function FriendsList() {
 
   const removeFriend = async (friendId) => {
   try {
-    await axios.delete(
-      `http://localhost:3000/api/friends/remove/${friendId}`,
+    await api.delete("/friends/remove/${friendId}",
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -81,3 +81,4 @@ export default function FriendsList() {
     </div>
   );
 }
+
