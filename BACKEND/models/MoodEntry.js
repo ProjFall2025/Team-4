@@ -2,7 +2,7 @@
 
 class MoodEntry {
   static async findAllByUser(user_id) {
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       'SELECT * FROM MoodEntries WHERE user_id = ? ORDER BY mood_date DESC',
       [user_id]
     );
@@ -10,7 +10,7 @@ class MoodEntry {
   }
 
   static async findById(id) {
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       'SELECT * FROM MoodEntries WHERE mood_id = ? LIMIT 1',
       [id]
     );
@@ -18,7 +18,7 @@ class MoodEntry {
   }
 
   static async create({ user_id, mood_type, emoji, note }) {
-    const [result] = await db.promise().query(
+    const [result] = await db.query(
       'INSERT INTO MoodEntries (user_id, mood_type, emoji, note) VALUES (?, ?, ?, ?)',
       [user_id, mood_type, emoji, note]
     );
@@ -26,7 +26,7 @@ class MoodEntry {
   }
 
   static async update(id, { mood_type, emoji, note }) {
-    await db.promise().query(
+    await db.query(
       'UPDATE MoodEntries SET mood_type = ?, emoji = ?, note = ? WHERE mood_id = ?',
       [mood_type, emoji, note, id]
     );
@@ -34,7 +34,7 @@ class MoodEntry {
   }
 
   static async delete(id) {
-    const [result] = await db.promise().query(
+    const [result] = await db.query(
       'DELETE FROM MoodEntries WHERE mood_id = ?',
       [id]
     );
@@ -43,3 +43,4 @@ class MoodEntry {
 }
 
 module.exports = MoodEntry;
+
