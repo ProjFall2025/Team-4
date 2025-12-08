@@ -8,7 +8,7 @@ exports.sendRequest = async (req, res) => {
     if (senderId === receiver_id)
       return res.status(400).json({ message: "You cannot send a request to yourself." });
 
-    await db.promise().query(
+    await db.query(
       "INSERT INTO FriendRequests (sender_id, receiver_id, status) VALUES (?, ?, 'pending')",
       [senderId, receiver_id]
     );
@@ -23,7 +23,7 @@ exports.sendRequest = async (req, res) => {
 exports.acceptRequest = async (req, res) => {
   try {
     const requestId = req.params.id;
-    await db.promise().query("UPDATE FriendRequests SET status = 'accepted' WHERE request_id = ?", [requestId]);
+    await db.query("UPDATE FriendRequests SET status = 'accepted' WHERE request_id = ?", [requestId]);
     res.json({ message: "Friend request accepted" });
   } catch (err) {
     console.error("Accept request error:", err);
@@ -34,7 +34,7 @@ exports.acceptRequest = async (req, res) => {
 exports.getRequests = async (req, res) => {
   try {
     const userId = req.user.user_id;
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       "SELECT * FROM FriendRequests WHERE receiver_id = ? AND status = 'pending'",
       [userId]
     );
@@ -48,7 +48,7 @@ exports.getRequests = async (req, res) => {
 exports.getFriends = async (req, res) => {
   try {
     const userId = req.user.user_id;
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       "SELECT * FROM FriendRequests WHERE (sender_id = ? OR receiver_id = ?) AND status = 'accepted'",
       [userId, userId]
     );
@@ -58,3 +58,4 @@ exports.getFriends = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
