@@ -6,7 +6,7 @@ const { authenticateToken } = require("../Middleware/auth");
 // GET PUBLIC USERS (exclude admin)
 router.get("/public", authenticateToken, async (req, res) => {
   try {
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       `
       SELECT 
         u.user_id,
@@ -45,9 +45,7 @@ router.get("/me", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.user_id;
 
-    const [rows] = await db
-      .promise()
-      .query(
+    const [rows] = await db.query(
         `
         SELECT 
           user_id,
@@ -84,9 +82,7 @@ router.put("/update", authenticateToken, async (req, res) => {
     const userId = req.user.user_id;
     const { username, email, gender, dob, about_me, theme } = req.body;
 
-    await db
-      .promise()
-      .query(
+    await db.query(
         `
         UPDATE Users SET
           username = ?,
@@ -113,9 +109,7 @@ router.delete("/delete", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.user_id;
 
-    const [result] = await db
-      .promise()
-      .query("DELETE FROM Users WHERE user_id = ?", [userId]);
+    const [result] = await db.query("DELETE FROM Users WHERE user_id = ?", [userId]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "User not found" });
@@ -129,3 +123,4 @@ router.delete("/delete", authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
+
