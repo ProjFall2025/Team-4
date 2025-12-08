@@ -1,10 +1,10 @@
 const db = require('../config/Database');
 
 const userController = {
-  // Fetch all users with basic + aggregated mood data
+
   getPublicProfiles: async (req, res) => {
     try {
-      const [users] = await db.promise().query(`
+      const [users] = await db.query(`
         SELECT 
           u.user_id,
           u.username,
@@ -36,7 +36,7 @@ const userController = {
   getUserProfileById: async (req, res) => {
     try {
       const userId = req.params.id;
-      const [rows] = await db.promise().query(`
+      const [rows] = await db.query(`
         SELECT 
           u.user_id,
           u.username,
@@ -71,3 +71,4 @@ const userController = {
 };
 
 module.exports = userController;
+
