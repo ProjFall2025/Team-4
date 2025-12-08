@@ -2,7 +2,7 @@ const db = require('../config/Database');
 
 class JournalEntry {
   static async findAllByUser(user_id) {
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       'SELECT * FROM JournalEntries WHERE user_id = ? ORDER BY created_at DESC',
       [user_id]
     );
@@ -10,7 +10,7 @@ class JournalEntry {
   }
 
   static async findById(id) {
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       'SELECT * FROM JournalEntries WHERE journal_id = ? LIMIT 1',
       [id]
     );
@@ -18,7 +18,7 @@ class JournalEntry {
   }
 
   static async create({ user_id, mood_id = null, title, content }) {
-    const [result] = await db.promise().query(
+    const [result] = await db.query(
       'INSERT INTO JournalEntries (user_id, mood_id, title, content) VALUES (?, ?, ?, ?)',
       [user_id, mood_id, title, content]
     );
@@ -26,7 +26,7 @@ class JournalEntry {
   }
 
   static async update(id, { title, content, mood_id = null }) {
-    await db.promise().query(
+    await db.query(
       'UPDATE JournalEntries SET title = ?, content = ?, mood_id = ? WHERE journal_id = ?',
       [title, content, mood_id, id]
     );
@@ -34,7 +34,7 @@ class JournalEntry {
   }
 
   static async delete(id) {
-    const [result] = await db.promise().query(
+    const [result] = await db.query(
       'DELETE FROM JournalEntries WHERE journal_id = ?',
       [id]
     );
@@ -43,3 +43,4 @@ class JournalEntry {
 }
 
 module.exports = JournalEntry;
+
