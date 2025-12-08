@@ -7,20 +7,16 @@ const crypto = require("crypto");
 const RESET_TOKEN_EXPIRY = 15 * 60 * 1000; // 15 minutes
 let resetTokens = {}; // store temporary reset tokens
 
-// ==============================
 // AUTH CONTROLLER
-// ==============================
 const authController = {
-  // ----------------------------
+ 
   // Register new user
-  // ----------------------------
   register: async (req, res) => {
     try {
       const { username, email, password, role } = req.body;
 
       // Check if user exists
       const [existingUser] = await db
-        .promise()
         .query("SELECT * FROM Users WHERE email = ? LIMIT 1", [email]);
       if (existingUser.length > 0) {
         return res.status(400).json({ message: "User already exists" });
@@ -31,7 +27,6 @@ const authController = {
 
       // Insert user
       const [result] = await db
-        .promise()
         .query(
           "INSERT INTO Users (username, email, password_hash, role) VALUES (?, ?, ?, ?)",
           [username, email, password_hash, role || "user"]
@@ -57,15 +52,12 @@ const authController = {
     }
   },
 
-  // ----------------------------
   // Login
-  // ----------------------------
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
 
       const [rows] = await db
-        .promise()
         .query("SELECT * FROM Users WHERE email = ? LIMIT 1", [email]);
       const user = rows[0];
       if (!user)
@@ -78,7 +70,6 @@ const authController = {
 
       // Update last login timestamp
       await db
-        .promise()
         .query("UPDATE Users SET last_login = NOW() WHERE user_id = ?", [
           user.user_id,
         ]);
@@ -112,14 +103,12 @@ const authController = {
       res.status(500).json({ message: "Server error during login" });
     }
   },
-
-  // ----------------------------
+  
   // Get user profile
-  // ----------------------------
   getProfile: async (req, res) => {
   try {
     const userId = req.user.user_id;
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       `SELECT 
         user_id,
         username,
@@ -147,9 +136,7 @@ const authController = {
   }
 },
 
-  // ----------------------------
   // Update user info
-  // ----------------------------
   updateUser: async (req, res) => {
   try {
     const { username, email, password, dob, gender, about_me, theme } = req.body;
@@ -179,7 +166,7 @@ const authController = {
     query = query.slice(0, -2) + " WHERE user_id = ?";
     values.push(userId);
 
-    await db.promise().query(query, values);
+    await db.query(query, values);
     res.json({ message: "Profile updated successfully" });
   } catch (error) {
     console.error("Update error:", error);
@@ -188,15 +175,12 @@ const authController = {
 },
 
 
-  // ----------------------------
   // Delete user
-  // ----------------------------
   deleteUser: async (req, res) => {
     try {
       const userId = req.user.user_id;
 
       const [result] = await db
-        .promise()
         .query("DELETE FROM Users WHERE user_id = ?", [userId]);
 
       if (result.affectedRows === 0) {
@@ -210,9 +194,7 @@ const authController = {
     }
   },
 
-  // ----------------------------
   // Forgot Password (dev mode)
-  // ----------------------------
   forgotPassword: async (req, res) => {
     try {
       const { email } = req.body;
@@ -244,12 +226,8 @@ const authController = {
       res.status(500).json({ message: "Error generating reset link" });
     }
   },
-
-  // ==============================
+  
 // @desc Reset password
-// @route POST /api/auth/reset-password/:token
-// @access Public
-// ==============================
 resetPassword: async (req, res) => {
   try {
     const { token } = req.params;
@@ -262,7 +240,6 @@ resetPassword: async (req, res) => {
       }
 
       const [rows] = await db
-        .promise()
         .query("SELECT * FROM Users WHERE email = ? LIMIT 1", [email]);
 
       const user = rows[0];
@@ -281,9 +258,7 @@ resetPassword: async (req, res) => {
       }
 
       const newHashedPassword = await bcrypt.hash(newPassword, 10);
-      await db
-        .promise()
-        .query("UPDATE Users SET password_hash = ? WHERE user_id = ?", [
+      await db.query("UPDATE Users SET password_hash = ? WHERE user_id = ?", [
           newHashedPassword,
           user.user_id,
         ]);
@@ -301,9 +276,7 @@ resetPassword: async (req, res) => {
         .json({ message: "Invalid or expired reset token" });
     }
 
-    const [rows] = await db
-      .promise()
-      .query("SELECT * FROM Users WHERE user_id = ? LIMIT 1", [
+    const [rows] = await db.query("SELECT * FROM Users WHERE user_id = ? LIMIT 1", [
         tokenData.userId,
       ]);
     const user = rows[0];
@@ -323,9 +296,7 @@ resetPassword: async (req, res) => {
     }
 
     const newHashedPassword = await bcrypt.hash(newPassword, 10);
-    await db
-      .promise()
-      .query("UPDATE Users SET password_hash = ? WHERE user_id = ?", [
+    await db.query("UPDATE Users SET password_hash = ? WHERE user_id = ?", [
         newHashedPassword,
         user.user_id,
       ]);
@@ -340,3 +311,4 @@ resetPassword: async (req, res) => {
 };
 
 module.exports = authController;
+
