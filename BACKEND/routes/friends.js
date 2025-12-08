@@ -15,7 +15,7 @@ router.post("/request/:id", authenticateToken, async (req, res) => {
     }
 
     // Check if target user is admin
-    const [roleCheck] = await db.promise().query(
+    const [roleCheck] = await db.query(
       "SELECT role FROM Users WHERE user_id = ?",
       [receiverId]
     );
@@ -25,7 +25,7 @@ router.post("/request/:id", authenticateToken, async (req, res) => {
     }
 
     // Prevent duplicate request
-    const [existing] = await db.promise().query(
+    const [existing] = await db.query(
       `SELECT * FROM FriendRequests
       WHERE 
         (sender_id=? AND receiver_id=?)
@@ -44,7 +44,7 @@ router.post("/request/:id", authenticateToken, async (req, res) => {
 
 
     // Insert request
-    await db.promise().query(
+    await db.query(
       "INSERT INTO FriendRequests (sender_id, receiver_id, status) VALUES (?, ?, 'pending')",
       [senderId, receiverId]
     );
@@ -63,7 +63,7 @@ router.get("/received", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.user_id;
 
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       `
       SELECT 
         fr.request_id,
@@ -92,7 +92,7 @@ router.post("/accept/:requestId", authenticateToken, async (req, res) => {
     const requestId = req.params.requestId;
 
     // Mark request as accepted
-    await db.promise().query(
+    await db.query(
       "UPDATE FriendRequests SET status='accepted' WHERE request_id=?",
       [requestId]
     );
@@ -111,7 +111,7 @@ router.post("/reject/:requestId", authenticateToken, async (req, res) => {
   try {
     const requestId = req.params.requestId;
 
-    await db.promise().query(
+    await db.query(
       "DELETE FROM FriendRequests WHERE request_id=?",
       [requestId]
     );
@@ -130,7 +130,7 @@ router.get("/", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.user_id;
 
-    const [friends] = await db.promise().query(
+    const [friends] = await db.query(
       `
       SELECT DISTINCT
         u.user_id,
@@ -161,7 +161,7 @@ router.get("/status/:id", authenticateToken, async (req, res) => {
     const userId = req.user.user_id;
     const otherId = req.params.id;
 
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       `
       SELECT status FROM FriendRequests
       WHERE (sender_id=? AND receiver_id=?)
@@ -186,7 +186,7 @@ router.get("/requests/pending", authenticateToken, async (req, res) => {
   try {
     const userId = req.user.user_id;
 
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       `
       SELECT request_id 
       FROM FriendRequests
@@ -210,7 +210,7 @@ router.delete("/remove/:id", authenticateToken, async (req, res) => {
     const friendId = req.params.id;
 
     // Delete accepted friendships in either direction
-    await db.promise().query(
+    await db.query(
       `DELETE FROM FriendRequests 
        WHERE 
          (sender_id=? AND receiver_id=?)
@@ -228,3 +228,4 @@ router.delete("/remove/:id", authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
+
